@@ -29,7 +29,7 @@ def main():
     })
 
     # Do StreamingDataFrame operations/transformations here
-    sdf = sdf.print(metadata=True)
+    sdf = sdf.print_table(metadata=True)
 
     # Finish off by writing to the final result to the output topic
     #sdf.to_topic(output_topic)
