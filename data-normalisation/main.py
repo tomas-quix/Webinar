@@ -36,6 +36,7 @@ def main():
         row["sensor_id"]: row["value"]
     })
 
+    sdf = sdf.group_by("machine")
 
     sdf = sdf.tumbling_window(1000).agg(
         FAN_SPEED=Last("FAN_SPEED"),
