@@ -36,9 +36,9 @@ def main():
     sdf = sdf.group_by("machine")
 
     sdf = sdf.tumbling_window(100, 1000).agg(
-        PRINT_SPEED=Count("PRINT_SPEED"),
-        BED_TEMPERATURE=Count("BED_TEMPERATURE"),
-        NOZZLE_TEMPERATURE=Count("NOZZLE_TEMPERATURE")).final()
+        PRINT_SPEED=Last("PRINT_SPEED"),
+        BED_TEMPERATURE=Last("BED_TEMPERATURE"),
+        NOZZLE_TEMPERATURE=Last("NOZZLE_TEMPERATURE")).final()
 
     sdf["start"] = sdf["start"].apply(lambda epoch: str(datetime.fromtimestamp(epoch / 1000)))
 
