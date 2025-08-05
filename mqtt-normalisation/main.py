@@ -1,4 +1,5 @@
 from quixstreams import Application
+from quixstreams.dataframe.windows.aggregations import Last
 
 import os
 
@@ -31,6 +32,13 @@ def main():
         "timestamp": row["timestamp"],
         row["sensor_id"]: row["value"]
     })
+
+
+    sdf = sdf.hopping_window(5000, 1000, 1000).agg(
+        PRINT_SPEED=Last("PRINT_SPEED"),
+        BED_TEMPERATURE=Last("BED_TEMPERATURE"),
+        NOZZLE_TEMPERATURE=Last("NOZZLE_TEMPERATURE"),
+        FAN_SPEED=Last("FAN_SPEED")).final()
 
     # Do StreamingDataFrame operations/transformations here
     sdf = sdf.print_table(metadata=False)
