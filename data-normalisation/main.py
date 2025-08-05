@@ -17,9 +17,16 @@ def main():
         auto_create_topics=True,
         auto_offset_reset="earliest"
     )
-    input_topic = app.topic(name=os.environ["input"])
+    input_topic = app.topic(name=os.environ["input"], key_deserializer="str")
     output_topic = app.topic(name=os.environ["output"])
     sdf = app.dataframe(topic=input_topic)
+
+    sdf = sdf.apply(lambda value, key, timestamp, h: {
+        "timestamp": timestamp,
+        "machine": key.split("/")[0],
+        "sensor_id": key.split("/")[1],
+        "value": value
+    })
 
     # Do StreamingDataFrame operations/transformations here
     sdf = sdf.print(metadata=True)
