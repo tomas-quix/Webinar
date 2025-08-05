@@ -44,6 +44,8 @@ def main():
 
     sdf = sdf[["start", "PRINT_SPEED", "BED_TEMPERATURE", "NOZZLE_TEMPERATURE"]]
 
+    sdf["f(x)"] = sdf["PRINT_SPEED"] * sdf["BED_TEMPERATURE"]
+
     # Do StreamingDataFrame operations/transformations here
     sdf = sdf.print_table(metadata=False)
 
