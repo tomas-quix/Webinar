@@ -34,7 +34,7 @@ def main():
     })
 
 
-    sdf = sdf.hopping_window(5000, 1000, 1000).agg(
+    sdf = sdf.hopping_window(10000, 1000, 1000).agg(
         PRINT_SPEED=Last("PRINT_SPEED"),
         BED_TEMPERATURE=Last("BED_TEMPERATURE"),
         NOZZLE_TEMPERATURE=Last("NOZZLE_TEMPERATURE"),
