@@ -12,7 +12,7 @@ def main():
 
     # Setup necessary objects
     app = Application(
-        consumer_group="my_transformation",
+        consumer_group="mqtt_norm",
         auto_create_topics=True,
         auto_offset_reset="earliest"
     )
@@ -35,7 +35,7 @@ def main():
 
     sdf = sdf.group_by("machine")
 
-    sdf = sdf.hopping_window(10000, 1000, 1000).agg(
+    sdf = sdf.hopping_window(1000, 1000, 1000).agg(
         PRINT_SPEED=Count("PRINT_SPEED"),
         BED_TEMPERATURE=Count("BED_TEMPERATURE"),
         NOZZLE_TEMPERATURE=Count("NOZZLE_TEMPERATURE")).final()
