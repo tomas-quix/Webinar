@@ -24,7 +24,7 @@ def main():
         "sensor_id": key.split("/")[1],
         "timestamp": timestamp,
         "value": value
-    })
+    }, metadata=True)
 
     # Do StreamingDataFrame operations/transformations here
     sdf = sdf.print_table(metadata=True)
