@@ -1,5 +1,5 @@
 from quixstreams import Application
-from quixstreams.dataframe.windows.aggregations import Last
+from quixstreams.dataframe.windows.aggregations import Last, Count
 from datetime import datetime
 import os
 
@@ -36,9 +36,9 @@ def main():
     sdf = sdf.group_by("machine")
 
     sdf = sdf.hopping_window(10000, 1000, 1000).agg(
-        PRINT_SPEED=Last("PRINT_SPEED"),
-        BED_TEMPERATURE=Last("BED_TEMPERATURE"),
-        NOZZLE_TEMPERATURE=Last("NOZZLE_TEMPERATURE")).final()
+        PRINT_SPEED=Count("PRINT_SPEED"),
+        BED_TEMPERATURE=Count("BED_TEMPERATURE"),
+        NOZZLE_TEMPERATURE=Count("NOZZLE_TEMPERATURE")).final()
 
     sdf["start"] = sdf["start"].apply(lambda epoch: str(datetime.fromtimestamp(epoch / 1000)))
 
