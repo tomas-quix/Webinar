@@ -40,9 +40,9 @@ def main():
         BED_TEMPERATURE=Last("BED_TEMPERATURE"),
         NOZZLE_TEMPERATURE=Last("NOZZLE_TEMPERATURE")).final()
 
-    sdf["start"] = sdf["start"].apply(lambda epoch: str(datetime.fromtimestamp(epoch / 1000)))
+    #sdf["start"] = sdf["start"].apply(lambda epoch: str(datetime.fromtimestamp(epoch / 1000)))
 
-    sdf = sdf[["start", "PRINT_SPEED", "BED_TEMPERATURE", "NOZZLE_TEMPERATURE"]]
+    #sdf = sdf[["start", "PRINT_SPEED", "BED_TEMPERATURE", "NOZZLE_TEMPERATURE"]]
 
     sdf = sdf.fill("PRINT_SPEED", "BED_TEMPERATURE", "NOZZLE_TEMPERATURE", "AMBIENT_TEMPERATURE")
 
@@ -50,7 +50,7 @@ def main():
     sdf = sdf.print_table(metadata=False)
 
     # Finish off by writing to the final result to the output topic
-    #sdf.to_topic(output_topic)
+    sdf.to_topic(output_topic)
 
     # With our pipeline defined, now run the Application
     app.run()
