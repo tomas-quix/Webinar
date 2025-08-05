@@ -13,7 +13,7 @@ def main():
 
     # Setup necessary objects
     app = Application(
-        consumer_group="my_transformation",
+        consumer_group="data-norm-v1",
         auto_create_topics=True,
         auto_offset_reset="earliest"
     )
