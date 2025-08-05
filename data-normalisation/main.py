@@ -1,6 +1,7 @@
 # import the Quix Streams modules for interacting with Kafka.
 # For general info, see https://quix.io/docs/quix-streams/introduction.html
 from quixstreams import Application
+from quixstreams.dataframe.windows.aggregations import Last, Count, Mean
 from datetime import datetime
 import os
 
@@ -35,7 +36,15 @@ def main():
         row["sensor_id"]: row["value"]
     })
 
-    sdf["timestamp"] = sdf["timestamp"].apply(lambda epoch: str(datetime.fromtimestamp(epoch / 1000)))
+
+    sdf = sdf.tumbling_window(1000).agg(
+        FAN_SPEED=Last("FAN_SPEED"),
+        BED_TEMPERATURE=Last("BED_TEMPERATURE"),
+        PRINT_SPEED=Last("PRINT_SPEED")
+    ).final()
+
+    sdf["start"] = sdf["start"].apply(lambda epoch: str(datetime.fromtimestamp(epoch / 1000)))
+
 
     # Do StreamingDataFrame operations/transformations here
     sdf = sdf.print_table(metadata=False)
