@@ -38,7 +38,7 @@ def main():
 
     sdf = sdf.group_by("machine")
 
-    sdf = sdf.hopping_window(1000, 100).agg(
+    sdf = sdf.hopping_window(1000, 100, 1000).agg(
         FAN_SPEED=Last("FAN_SPEED"),
         BED_TEMPERATURE=Last("BED_TEMPERATURE"),
         PRINT_SPEED=Last("PRINT_SPEED")
@@ -46,6 +46,7 @@ def main():
 
     sdf["start"] = sdf["start"].apply(lambda epoch: str(datetime.fromtimestamp(epoch / 1000)))
 
+    sdf = sdf.fill("FAN_SPEED", "BED_TEMPERATURE", "PRINT_SPEED", "AUX_TEMP")
 
     # Do StreamingDataFrame operations/transformations here
     sdf = sdf.print_table(metadata=False)
