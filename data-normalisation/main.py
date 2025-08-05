@@ -1,7 +1,7 @@
 # import the Quix Streams modules for interacting with Kafka.
 # For general info, see https://quix.io/docs/quix-streams/introduction.html
 from quixstreams import Application
-
+from datetime import datetime
 import os
 
 # for local dev, load env vars from a .env file
@@ -34,6 +34,8 @@ def main():
 
         row["sensor_id"]: row["value"]
     })
+
+    sdf["timestamp"] = sdf["timestamp"].apply(lambda epoch: str(datetime.fromtimestamp(epoch / 1000)))
 
     # Do StreamingDataFrame operations/transformations here
     sdf = sdf.print_table(metadata=False)
