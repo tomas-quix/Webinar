@@ -35,7 +35,7 @@ def main():
 
     sdf = sdf.group_by("machine")
 
-    sdf = sdf.tumbling_window(1000, 1000).agg(
+    sdf = sdf.tumbling_window(100, 1000).agg(
         PRINT_SPEED=Count("PRINT_SPEED"),
         BED_TEMPERATURE=Count("BED_TEMPERATURE"),
         NOZZLE_TEMPERATURE=Count("NOZZLE_TEMPERATURE")).final()
