@@ -28,8 +28,15 @@ def main():
         "value": value
     }, metadata=True)
 
+    sdf = sdf.apply(lambda row: {
+        "timestamp": row["timestamp"],
+        "machine": row["machine"],
+
+        row["sensor_id"]: row["value"]
+    })
+
     # Do StreamingDataFrame operations/transformations here
-    sdf = sdf.print_table(metadata=True)
+    sdf = sdf.print_table(metadata=False)
 
     # Finish off by writing to the final result to the output topic
     #sdf.to_topic(output_topic)
