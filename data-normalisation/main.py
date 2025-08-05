@@ -48,13 +48,11 @@ def main():
 
     sdf = sdf.fill("FAN_SPEED", "BED_TEMPERATURE", "PRINT_SPEED", "AUX_TEMP")
 
-    sdf["fx"] = sdf["FAN_SPEED"] * sdf["BED_TEMPERATURE"]
-
     # Do StreamingDataFrame operations/transformations here
     sdf = sdf.print_table(metadata=False)
 
     # Finish off by writing to the final result to the output topic
-    #sdf.to_topic(output_topic)
+    sdf.to_topic(output_topic)
 
     # With our pipeline defined, now run the Application
     app.run()
