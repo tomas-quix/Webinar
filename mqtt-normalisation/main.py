@@ -33,6 +33,7 @@ def main():
         row["sensor_id"]: row["value"]
     })
 
+    sdf = sdf.group_by("machine")
 
     sdf = sdf.hopping_window(10000, 1000, 1000).agg(
         PRINT_SPEED=Last("PRINT_SPEED"),
