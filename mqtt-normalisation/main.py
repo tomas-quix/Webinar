@@ -27,7 +27,7 @@ def main():
     }, metadata=True)
 
     # Do StreamingDataFrame operations/transformations here
-    sdf = sdf.print_table(metadata=True, column_widths={"_timestamp": 100, "timestamp": 100})
+    sdf = sdf.print_table(metadata=True)
 
     # Finish off by writing to the final result to the output topic
     #sdf.to_topic(output_topic)
