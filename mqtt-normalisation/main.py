@@ -1,6 +1,6 @@
 from quixstreams import Application
 from quixstreams.dataframe.windows.aggregations import Last
-
+from datetime import datetime
 import os
 
 # for local dev, load env vars from a .env file
@@ -37,8 +37,11 @@ def main():
     sdf = sdf.hopping_window(10000, 1000, 1000).agg(
         PRINT_SPEED=Last("PRINT_SPEED"),
         BED_TEMPERATURE=Last("BED_TEMPERATURE"),
-        NOZZLE_TEMPERATURE=Last("NOZZLE_TEMPERATURE"),
-        FAN_SPEED=Last("FAN_SPEED")).final()
+        NOZZLE_TEMPERATURE=Last("NOZZLE_TEMPERATURE")).final()
+
+    sdf["start"] = sdf["start"].apply(lambda epoch: str(datetime.fromtimestamp(epoch / 1000)))
+
+    sdf = sdf[["start", "PRINT_SPEED", "BED_TEMPERATURE", "NOZZLE_TEMPERATURE"]]
 
     # Do StreamingDataFrame operations/transformations here
     sdf = sdf.print_table(metadata=False)
