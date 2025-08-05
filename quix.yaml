@@ -55,3 +55,4 @@ topics:
     dataTier: Bronze
   - name: sensor-data
     dataTier: Silver
+  - name: transform
