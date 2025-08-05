@@ -26,6 +26,12 @@ def main():
         "value": value
     }, metadata=True)
 
+    sdf = sdf.apply(lambda row: {
+        "machine": row["machine"],
+        "timestamp": row["timestamp"],
+        row["sensor_id"]: row["value"]
+    })
+
     # Do StreamingDataFrame operations/transformations here
     sdf = sdf.print_table(metadata=False)
 
