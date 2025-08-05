@@ -1,6 +1,12 @@
-# MQTT
+# MQTT Source Connector
 
-[This connector](https://github.com/quixio/quix-samples/tree/main/python/sources/MQTT) demonstrates how to consume data from an MQTT broker and publish that data to a Kafka topic.
+This connector is part of the **Webinar Series - Episode 1: Ingesting Test Data**, demonstrating real-time data ingestion from MQTT brokers as covered in our live coding session.
+
+[This connector](https://github.com/quixio/quix-samples/tree/main/python/sources/MQTT) demonstrates how to consume data from an MQTT broker and publish that data to a Kafka topic, specifically designed for industrial test data scenarios like:
+- Drone flight controller telemetry
+- Automotive battery system monitoring
+- HVAC performance testing
+- Real-time sensor data from test facilities
 
 ## How to run
 
