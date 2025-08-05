@@ -38,10 +38,10 @@ def main():
 
     sdf = sdf.group_by("machine")
 
-    sdf = sdf.tumbling_window(100).agg(
-        FAN_SPEED=Mean("FAN_SPEED"),
-        BED_TEMPERATURE=Mean("BED_TEMPERATURE"),
-        PRINT_SPEED=Mean("PRINT_SPEED")
+    sdf = sdf.hopping_window(1000, 100).agg(
+        FAN_SPEED=Last("FAN_SPEED"),
+        BED_TEMPERATURE=Last("BED_TEMPERATURE"),
+        PRINT_SPEED=Last("PRINT_SPEED")
     ).final()
 
     sdf["start"] = sdf["start"].apply(lambda epoch: str(datetime.fromtimestamp(epoch / 1000)))
