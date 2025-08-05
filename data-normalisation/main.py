@@ -48,6 +48,8 @@ def main():
 
     sdf = sdf.fill("FAN_SPEED", "BED_TEMPERATURE", "PRINT_SPEED", "AUX_TEMP")
 
+    sdf["fx"] = sdf["FAN_SPEED"] * sdf["BED_TEMPERATURE"]
+
     # Do StreamingDataFrame operations/transformations here
     sdf = sdf.print_table(metadata=False)
 
