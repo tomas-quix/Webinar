@@ -26,7 +26,7 @@ def main():
         "machine": key.split("/")[0],
         "sensor_id": key.split("/")[1],
         "value": value
-    })
+    }, metadata=True)
 
     # Do StreamingDataFrame operations/transformations here
     sdf = sdf.print_table(metadata=True)
