@@ -73,7 +73,5 @@ deployments:
 topics:
   - name: mqtt-raw
     dataTier: Bronze
-  - name: sensor-data
-    dataTier: Silver
   - name: sensor-table
     dataTier: Silver
