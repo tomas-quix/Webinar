@@ -67,7 +67,7 @@ deployments:
       - name: output
         inputType: OutputTopic
         description: Name of the output topic to write to.
-        value: sensor-table
+        value: sensor-data
 
 # This section describes the Topics of the data pipeline
 topics:
