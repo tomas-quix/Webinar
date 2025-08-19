@@ -260,6 +260,10 @@ deployments:
     state:
       enabled: true
       size: 1
+    network:
+      ports:
+        - port: 80
+          targetPort: 8080
 
 # This section describes the Topics of the data pipeline
 topics:
