@@ -14,7 +14,7 @@ def main():
 
     # Setup necessary objects
     app = Application(
-        consumer_group="data-norm-v1",
+        consumer_group="data-norm-v1.1",
         auto_create_topics=True,
         auto_offset_reset="earliest"
     )
@@ -46,7 +46,7 @@ def main():
 
     sdf["timestamp"] = sdf["start"]
 
-    sdf = sdf.drop(["start", "stop"])
+    sdf = sdf.drop(["start", "end"])
 
     sdf = sdf.fill("FAN_SPEED", "BED_TEMPERATURE", "PRINT_SPEED", "AUX_TEMP")
 
