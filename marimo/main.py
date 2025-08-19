@@ -27,16 +27,23 @@ def _(mo):
 @app.cell
 def _():
     from quixlake import QuixLakeClient
-    client = QuixLakeClient(base_url="https://quixlake-peter-quixlake-iceberg.app-staging.quix.io")
+    client = QuixLakeClient(base_url="https://quixlake-peter-quixlake-webinar.app-staging.quix.io")
     return (client,)
 
 
 @app.cell
 def _(mo):
     sql_query =  """
-    SELECT ts_ms,PRINT_SPEED,FAN_SPEED 
-    FROM iceberg 
-    LIMIT 10
+    SELECT
+        DATE_TRUNC('minute', ts_ms) AS time_bucket,
+        machine, 
+        mean(BED_TEMPERATURE), 
+        min(BED_TEMPERATURE),
+        max(BED_TEMPERATURE),
+    FROM sensortable
+    WHERE machine = '3D_PRINTER_1'
+    GROUP BY time_bucket, machine
+    ORDER BY time_bucket
     """
 
     # Render the query from when deploying this notebook as a webapp
@@ -47,9 +54,9 @@ def _(mo):
 
 
 @app.cell
-def _(client, pd, sql_query):
+def _(client, sql_query):
     df = client.query(sql_query)
-    df["ts_ms"] = pd.to_datetime(df["ts_ms"])
+
     df
     return (df,)
 
@@ -71,7 +78,7 @@ def _(df, pd, plt):
 
     # --- Prepare timestamp column ---
     # Handles epoch ms (int/float) or string timestamps; leaves datetime as-is.
-    _ts = df["ts_ms"]
+    _ts = df["time_bucket"]
     if pd.api.types.is_integer_dtype(_ts) or pd.api.types.is_float_dtype(_ts):
         ts = pd.to_datetime(_ts, unit="ms", utc=True).tz_convert("Europe/Prague")
     else:
@@ -83,7 +90,7 @@ def _(df, pd, plt):
 
     # Plot only numeric columns (skip the timestamp and any helper cols)
     numeric_cols = df.select_dtypes(include="number").columns.tolist()
-    cols_to_plot = [c for c in numeric_cols if c not in {"ts_ms"}]
+    cols_to_plot = [c for c in numeric_cols if c not in {"time_bucket"}]
 
     for col in cols_to_plot:
         ax.plot(ts, df[col], label=col)
