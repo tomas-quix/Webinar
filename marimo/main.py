@@ -35,15 +35,9 @@ def _():
 def _(mo):
     sql_query =  """
     SELECT
-        DATE_TRUNC('minute', ts_ms) AS time_bucket,
-        machine, 
-        mean(BED_TEMPERATURE), 
-        min(BED_TEMPERATURE),
-        max(BED_TEMPERATURE),
+        ts_ms as time, FAN_SPEED, BED_TEMPERATURE, machine
     FROM sensortable
-    WHERE machine = '3D_PRINTER_1'
-    GROUP BY time_bucket, machine
-    ORDER BY time_bucket
+    LIMIT 100
     """
 
     # Render the query from when deploying this notebook as a webapp
@@ -78,7 +72,7 @@ def _(df, pd, plt):
 
     # --- Prepare timestamp column ---
     # Handles epoch ms (int/float) or string timestamps; leaves datetime as-is.
-    _ts = df["time_bucket"]
+    _ts = df["time"]
     if pd.api.types.is_integer_dtype(_ts) or pd.api.types.is_float_dtype(_ts):
         ts = pd.to_datetime(_ts, unit="ms", utc=True).tz_convert("Europe/Prague")
     else:
@@ -90,7 +84,7 @@ def _(df, pd, plt):
 
     # Plot only numeric columns (skip the timestamp and any helper cols)
     numeric_cols = df.select_dtypes(include="number").columns.tolist()
-    cols_to_plot = [c for c in numeric_cols if c not in {"time_bucket"}]
+    cols_to_plot = [c for c in numeric_cols if c not in {"time"}]
 
     for col in cols_to_plot:
         ax.plot(ts, df[col], label=col)
