@@ -44,7 +44,9 @@ def main():
         PRINT_SPEED=Last("PRINT_SPEED")
     ).final()
 
-    sdf["start"] = sdf["start"].apply(lambda epoch: str(datetime.fromtimestamp(epoch / 1000)))
+    sdf["timestamp"] = sdf["start"]
+
+    sdf = sdf.drop(["start", "stop"])
 
     sdf = sdf.fill("FAN_SPEED", "BED_TEMPERATURE", "PRINT_SPEED", "AUX_TEMP")
 
