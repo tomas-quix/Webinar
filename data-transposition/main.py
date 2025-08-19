@@ -31,7 +31,8 @@ def main():
     sdf = sdf.hopping_window(1000, 100, 1000).agg(
         FAN_SPEED=Last("FAN_SPEED"),
         BED_TEMPERATURE=Last("BED_TEMPERATURE"),
-        PRINT_SPEED=Last("PRINT_SPEED")
+        PRINT_SPEED=Last("PRINT_SPEED"),
+        machine=Last("machine")
     ).final()
 
     sdf["timestamp"] = sdf["start"]
