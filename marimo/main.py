@@ -34,10 +34,16 @@ def _():
 @app.cell
 def _(mo):
     sql_query =  """
-    SELECT
-        ts_ms as time, FAN_SPEED, BED_TEMPERATURE, machine
+    SELECT 
+       DATE_TRUNC('minute',ts_ms) AS time, 
+       machine, 
+       mean(BED_TEMPERATURE),
+       min(BED_TEMPERATURE),
+       max(BED_TEMPERATURE)
     FROM sensortable
-    LIMIT 100
+    WHERE machine = '3D_PRINTER_1'
+    GROUP BY time, machine
+    ORDER BY time
     """
 
     # Render the query from when deploying this notebook as a webapp
