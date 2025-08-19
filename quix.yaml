@@ -75,3 +75,5 @@ topics:
     dataTier: Bronze
   - name: sensor-table
     dataTier: Silver
+  - name: sensor-data
+    dataTier: Silver
