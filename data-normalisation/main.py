@@ -29,32 +29,11 @@ def main():
         "value": value
     }, metadata=True)
 
-    sdf = sdf.apply(lambda row: {
-        "timestamp": row["timestamp"],
-        "machine": row["machine"],
-
-        row["sensor_id"]: row["value"]
-    })
-
-    sdf = sdf.group_by("machine")
-
-    sdf = sdf.hopping_window(1000, 100, 1000).agg(
-        FAN_SPEED=Last("FAN_SPEED"),
-        BED_TEMPERATURE=Last("BED_TEMPERATURE"),
-        PRINT_SPEED=Last("PRINT_SPEED")
-    ).final()
-
-    sdf["timestamp"] = sdf["start"]
-
-    sdf = sdf.drop(["start", "end"])
-
-    sdf = sdf.fill("FAN_SPEED", "BED_TEMPERATURE", "PRINT_SPEED", "AUX_TEMP")
-
     # Do StreamingDataFrame operations/transformations here
     sdf = sdf.print_table(metadata=False)
 
     # Finish off by writing to the final result to the output topic
-    sdf.to_topic(output_topic)
+    sdf.to_topic(output_topic, key=lambda row: row["machine"])
 
     # With our pipeline defined, now run the Application
     app.run()
