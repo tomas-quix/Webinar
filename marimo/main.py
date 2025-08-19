@@ -66,31 +66,44 @@ def _(mo):
 
 
 @app.cell
-def _(df, plt):
+def _(df, pd, plt):
     import matplotlib.dates as mdates
 
-    plt.figure(figsize=(12, 6))
+    # --- Prepare timestamp column ---
+    # Handles epoch ms (int/float) or string timestamps; leaves datetime as-is.
+    _ts = df["ts_ms"]
+    if pd.api.types.is_integer_dtype(_ts) or pd.api.types.is_float_dtype(_ts):
+        ts = pd.to_datetime(_ts, unit="ms", utc=True).tz_convert("Europe/Prague")
+    else:
+        ts = pd.to_datetime(_ts)  # pandas will infer tz/naive
 
-    # Overlay lines
-    for col in df.columns:
-        if col != "ts_ms":
-            plt.plot(df["ts_ms"], df[col], label=col)
-
-    # Format x-axis
-    plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())   # auto spacing
-    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d %H:%M"))  # format
-
-    # Use dark style
+    # --- Plot (dark theme first!) ---
     plt.style.use("dark_background")
+    fig, ax = plt.subplots(figsize=(12, 6))
 
-    plt.xticks(rotation=45, ha="right")  # rotate for readability
-    plt.title("Overlayed Time Series of Sensors")
-    plt.xlabel("Time")
-    plt.ylabel("Value")
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
+    # Plot only numeric columns (skip the timestamp and any helper cols)
+    numeric_cols = df.select_dtypes(include="number").columns.tolist()
+    cols_to_plot = [c for c in numeric_cols if c not in {"ts_ms"}]
+
+    for col in cols_to_plot:
+        ax.plot(ts, df[col], label=col)
+
+    # --- Time axis formatting ---
+    ax.xaxis.set_major_locator(mdates.AutoDateLocator())
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d %H:%M"))
+    for label in ax.get_xticklabels():
+        label.set_rotation(45)
+        label.set_horizontalalignment("right")
+
+    ax.set_title("Overlayed Time Series of Sensors")
+    ax.set_xlabel("Time")
+    ax.set_ylabel("Value")
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+    fig.tight_layout()
+
+    # For marimo Present mode: return the figure as the last expression
+    fig
     return
 
 
