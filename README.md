@@ -1,8 +1,10 @@
-# Webinar Series - Episode 1: Ingesting Test Data
+# Webinar Series
 
-This repository contains the final code from Episode 1 of our webinar series.
+This repository contains the final code from our webinar series.
 
-## Join us for a masterclass in ingesting test data
+## Episode 1: Ingesting Test Data
+
+### Join us for a masterclass in ingesting test data
 
 **Tuesday, July 22nd | 9:30am EST / 2:30pm GMT / 3:30pm CET**
 
@@ -31,3 +33,19 @@ Software engineers on digitization teams know the technical challenges: you're t
 ## Real-world impact
 
 Companies using centralized data ingestion architectures report 40% faster root cause analysis and 60% reduction in time spent searching for historical test data. By moving from desktop-based file exchanges to cloud-native data pipelines, R&D teams can reuse configuration metadata across test programs and maintain complete audit trails for regulatory compliance.
+
+## Episode 2: Test Data Normalisation
+
+### A masterclass in test data normalisation using Python
+
+**Monday, August 5th | 9:30am EST / 2:30pm BST / 3:30pm CET**
+
+Join us as we first talk about then demonstrate why and how to consolidate test data, in all its formats, into a standardized schema.
+
+We'll cover:
+
+- Data sources, types and frequencies of data.
+- Why data needs to be standardized.
+- How to choose a transport protocol.
+- Schema validation.
+- How to normalize and synchronize time-series test data.
