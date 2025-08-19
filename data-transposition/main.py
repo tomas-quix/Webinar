@@ -1,8 +1,7 @@
 # import the Quix Streams modules for interacting with Kafka.
 # For general info, see https://quix.io/docs/quix-streams/introduction.html
 from quixstreams import Application
-from quixstreams.dataframe.windows.aggregations import Last, Count, Mean
-from datetime import datetime
+from quixstreams.dataframe.windows.aggregations import Last
 import os
 
 # for local dev, load env vars from a .env file
