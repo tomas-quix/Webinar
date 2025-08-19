@@ -22,13 +22,6 @@ def main():
     output_topic = app.topic(name=os.environ["output"])
     sdf = app.dataframe(topic=input_topic)
 
-    sdf = sdf.apply(lambda value, key, timestamp, h: {
-        "timestamp": timestamp,
-        "machine": key.split("/")[0],
-        "sensor_id": key.split("/")[1],
-        "value": value
-    }, metadata=True)
-
     sdf = sdf.apply(lambda row: {
         "timestamp": row["timestamp"],
         "machine": row["machine"],
