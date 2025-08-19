@@ -114,7 +114,7 @@ deployments:
       - name: TABLE_NAME
         inputType: FreeText
         description: Table name for data organization and registration
-        value: sensor-data
+        value: sensordata
       - name: HIVE_COLUMNS
         inputType: FreeText
         description: Comma-separated list of columns for Hive partitioning (e.g., location,sensor_type)
