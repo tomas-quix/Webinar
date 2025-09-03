@@ -1,7 +1,7 @@
 # import the Quix Streams modules for interacting with Kafka.
 # For general info, see https://quix.io/docs/quix-streams/introduction.html
 from quixstreams import Application
-from quixstreams.dataframe.joins.lookups import 
+from quixstreams.dataframe.joins.lookups import QuixConfigurationService
 
 import os
 
