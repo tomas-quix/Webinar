@@ -49,3 +49,11 @@ We'll cover:
 - How to choose a transport protocol.
 - Schema validation.
 - How to normalize and synchronize time-series test data.
+
+## Episode 3: Master class in test data schema preparation for analytics
+
+Join us for this masterclass on preparing test data for advanced analytics and AI. This session continues from our previous webinars on Python-based data ingestion and normalization. This time we'll deep-dive into how to design data analytics-ready data schemas.
+
+Here's where many R&D teams hit a wall: you've successfully normalized your drone telemetry, battery test results, and HVAC performance data into consistent formats. But when your engineers try to run analytics, queries take forever, visualizations break, and AI models can't find the patterns they need. The result - your Engineers spend more time fixing data schemas than actually analyzing test results.
+
+We'll cover practical approaches for designing analytical schemas that support specific analytics use cases. You'll learn how to structure time-series data for fast querying, preserve engineering metadata that AI needs, and optimize data types for dramatically improved query performance. The session includes real examples of analytical schema design for comparative analysis across test campaigns, automated anomaly detection, and predictive modeling for design optimization.
