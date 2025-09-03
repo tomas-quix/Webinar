@@ -1,0 +1,5 @@
+name: Marino
+language: python
+dockerfile: dockerfile
+runEntryPoint: dockerfile
+defaultFile: requirements.txt
