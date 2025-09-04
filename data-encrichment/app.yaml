@@ -9,6 +9,11 @@ variables:
     inputType: OutputTopic
     description: Name of the output topic to write to.
     defaultValue: transform
+  - name: config_updates
+    inputType: InputTopic
+    multiline: false
+    defaultValue: config-updates
+    required: true
 dockerfile: dockerfile
 runEntryPoint: main.py
 defaultFile: main.py
