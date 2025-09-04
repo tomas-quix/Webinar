@@ -11,7 +11,7 @@ import os
 def main():
     # Setup necessary objects
     app = Application(
-        consumer_group="my_transformation",
+        consumer_group="data_enrichment_v1",
         auto_create_topics=True,
         auto_offset_reset="earliest"
     )
@@ -41,7 +41,7 @@ def main():
     sdf.print_table(metadata=False)
 
     # Finish off by writing to the final result to the output topic
-    #sdf.to_topic(output_topic)
+    sdf.to_topic(output_topic)
 
     # With our pipeline defined, now run the Application
     app.run()
