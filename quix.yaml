@@ -119,7 +119,7 @@ deployments:
         inputType: InputTopic
         description: Name of the Kafka input topic to consume from
         required: true
-        value: sensor-data
+        value: enriched
       - name: S3_BUCKET
         inputType: FreeText
         description: S3 bucket name for storing Parquet files
