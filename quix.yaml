@@ -136,7 +136,7 @@ deployments:
       - name: HIVE_COLUMNS
         inputType: FreeText
         description: Comma-separated list of columns for Hive partitioning (e.g., location,sensor_type)
-        value: location,machine,sensor_id
+        value: location,machine
       - name: TIMESTAMP_COLUMN
         inputType: FreeText
         description: Column containing timestamp values for time-based partitioning
