@@ -198,3 +198,4 @@ topics:
     linkedTopic:
       workspaceId: peter-configurationmanagement-ep4
   - name: transform
+  - name: enriched
