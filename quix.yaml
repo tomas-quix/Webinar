@@ -128,15 +128,15 @@ deployments:
       - name: S3_PREFIX
         inputType: FreeText
         description: S3 prefix/path for data files
-        value: iceberg
+        value: webinar
       - name: TABLE_NAME
         inputType: FreeText
         description: Table name for data organization and registration
-        value: sensordata
+        value: webinar
       - name: HIVE_COLUMNS
         inputType: FreeText
         description: Comma-separated list of columns for Hive partitioning (e.g., location,sensor_type)
-        value: machine,sensor_id
+        value: location,machine
       - name: TIMESTAMP_COLUMN
         inputType: FreeText
         description: Column containing timestamp values for time-based partitioning
