@@ -1,7 +1,7 @@
 # import the Quix Streams modules for interacting with Kafka.
 # For general info, see https://quix.io/docs/quix-streams/introduction.html
 from quixstreams import Application
-from quixstreams.dataframe.joins.lookups import QuixConfigurationService
+from quixstreams.dataframe.joins.lookups import QuixConfigurationService, QuixConfigurationServiceJSONField as Field
 
 import os
 
@@ -18,9 +18,9 @@ def main():
         auto_create_topics=True,
         auto_offset_reset="earliest"
     )
-    input_topic = app.topic(name=os.environ["input"])
+    input_topic = app.topic(name=os.environ["input"], key_deserializer="str")
     output_topic = app.topic(name=os.environ["output"])
-    config_topic = app.topic(name=os.environ["CONFIG_TOPIC"])
+    config_topic = app.topic(name=os.environ["config_topic"])
 
     sdf = app.dataframe(topic=input_topic)
 
@@ -33,32 +33,23 @@ def main():
     sdf = sdf.join_lookup(
         lookup=enricher,
         fields={
-            "editor_name": Field(
-                type="printer-config",
+            "location": Field(
+                type="experiment-cfg",
                 default=None,
-                jsonpath="editor_name"
-            ),
-            "field_scalar": Field(
-                type="printer-config",
-                default=1.0,
-                jsonpath="field_scalar"
+                jsonpath="location"
             ),
             "mapping": Field(
-                type="printer-config",
+                type="experiment-cfg",
                 default={},
                 jsonpath="mapping"
             ),
         }
-    ).apply(config_apply)
+    )
 
+    sdf.print()
+    
     # Finish off by writing to the final result to the output topic
-    sdf.to_topic(output_topic, key=lambda row: row["machine"])
-
-    # With our pipeline defined, now run the Application
-    app.run()
-
-    # Finish off by writing to the final result to the output topic
-    sdf.to_topic(output_topic)
+    #sdf.to_topic(output_topic, key=lambda row: row["machine"])
 
     # With our pipeline defined, now run the Application
     app.run()
