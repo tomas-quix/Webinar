@@ -195,3 +195,6 @@ topics:
   - name: sensor-data
     dataTier: Silver
   - name: transform
+  - name: config-updates
+    linkedTopic:
+      workspaceId: peter-configurationmanagement-ep4
