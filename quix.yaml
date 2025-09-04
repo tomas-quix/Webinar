@@ -194,3 +194,6 @@ topics:
     dataTier: Silver
   - name: sensor-data
     dataTier: Silver
+  - name: config-updates
+    linkedTopic:
+      workspaceId: peter-configurationmanagement-ep4
