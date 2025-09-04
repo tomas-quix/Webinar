@@ -15,7 +15,7 @@ def main():
         auto_create_topics=True,
         auto_offset_reset="earliest"
     )
-    input_topic = app.topic(name=os.environ["input"])
+    input_topic = app.topic(name=os.environ["input"], key_deserializer="str")
     output_topic = app.topic(name=os.environ["output"])
     config_topic = app.topic(name=os.environ["config_topic"])
 
