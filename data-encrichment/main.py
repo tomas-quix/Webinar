@@ -1,4 +1,5 @@
 from quixstreams import Application
+from quixstreams.dataframe.joins.lookups import QuixConfigurationService, QuixConfigurationServiceJSONField as Field
 
 import os
 
@@ -16,7 +17,26 @@ def main():
     )
     input_topic = app.topic(name=os.environ["input"])
     output_topic = app.topic(name=os.environ["output"])
+    config_topic = app.topic(name=os.environ["config_topic"])
+
+    enricher = QuixConfigurationService(
+        topic=config_topic,
+        app_config=app.config,
+    )
+
     sdf = app.dataframe(topic=input_topic)
+
+    # Enrich data using defined configs (lookup_join)
+    sdf = sdf.join_lookup(
+        lookup=enricher,
+        fields={
+            "location": Field(
+                type="experiment-cfg",
+                default=None,
+                jsonpath="location"
+            )
+        }
+    )
 
     sdf.print_table(metadata=False)
 
