@@ -9,7 +9,7 @@ variables:
     inputType: OutputTopic
     description: Name of the output topic to write to.
     defaultValue: transform
-  - name: config_updates
+  - name: config_topic
     inputType: InputTopic
     multiline: false
     defaultValue: config-updates
