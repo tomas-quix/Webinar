@@ -204,7 +204,7 @@ deployments:
       - name: output
         inputType: OutputTopic
         description: Name of the output topic to write to.
-        value: transform
+        value: enriched
       - name: config_topic
         inputType: InputTopic
         required: true
@@ -222,3 +222,4 @@ topics:
   - name: config-updates
     linkedTopic:
       workspaceId: peter-configurationmanagement-ep4
+  - name: enriched
