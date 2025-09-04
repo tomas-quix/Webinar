@@ -49,7 +49,7 @@ def main():
     sdf.print()
     
     # Finish off by writing to the final result to the output topic
-    #sdf.to_topic(output_topic, key=lambda row: row["machine"])
+    sdf.to_topic(output_topic)
 
     # With our pipeline defined, now run the Application
     app.run()
