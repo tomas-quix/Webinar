@@ -119,7 +119,7 @@ deployments:
         inputType: InputTopic
         description: Name of the Kafka input topic to consume from
         required: true
-        value: sensor-data
+        value: enriched
       - name: S3_BUCKET
         inputType: FreeText
         description: S3 bucket name for storing Parquet files
@@ -132,11 +132,11 @@ deployments:
       - name: TABLE_NAME
         inputType: FreeText
         description: Table name for data organization and registration
-        value: sensordata
+        value: webinardata
       - name: HIVE_COLUMNS
         inputType: FreeText
         description: Comma-separated list of columns for Hive partitioning (e.g., location,sensor_type)
-        value: machine,sensor_id
+        value: location,machine,sensor_id
       - name: TIMESTAMP_COLUMN
         inputType: FreeText
         description: Column containing timestamp values for time-based partitioning
